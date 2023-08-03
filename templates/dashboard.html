@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dashboard</title>
+</head>
+<body>
+
+<form>
+    <label for="value">Значение: </label>
+    <input type="text" id="value" placeholder="Введите значение">
+
+    <label for="guild">Айди сервера: </label>
+    <input type="text" id="guild" placeholder="Введите значение">
+
+    <button id="save" type="button">Сохранить</button>
+</form>
+
+<script>
+    const value = document.getElementById("value")
+    const guild = document.getElementById("guild")
+    const saveButton = document.getElementById("save")
+
+    saveButton.addEventListener("click", (ev) => {
+        ev.preventDefault()
+
+        const data = JSON.stringify({
+            value: value.value,
+            guild_id: guild.value
+        })
+
+        fetch("http://localhost:8000/dashboard", {
+            method: "PUT",
+            body: data,
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+        }).then(r => console.log(r))
+    })
+</script>
+
+</body>
+</html>
